@@ -13,7 +13,8 @@
               v-model="name"
               class="form-control"
               id="exampleInputName1"
-              placeholder="Enter name" />
+              placeholder="Enter name"
+            />
           </div>
 
           <div class="form-group">
@@ -23,7 +24,8 @@
               v-model="surname"
               class="form-control"
               id="exampleInputSurname1"
-              placeholder="Enter surname" />
+              placeholder="Enter surname"
+            />
           </div>
 
           <div class="form-group">
@@ -35,7 +37,7 @@
               id="exampleInputEmail1"
               aria-describedby="emailHelp"
               placeholder="Enter email"
-              autocomplete="username" />
+            />
             <small id="emailHelp" class="form-text text-muted">
               We'll never share your email with anyone else.
             </small>
@@ -49,7 +51,7 @@
               class="form-control"
               id="exampleInputPassword1"
               placeholder="Password"
-              autocomplete="current-password" />
+            />
           </div>
 
           <button type="button" @click="signup()" class="btn btn-primary">
@@ -75,17 +77,29 @@ export default {
       password: "",
     };
   },
-
   methods: {
     signup() {
+      console.log("Start...");
+      console.log(
+        "User:",
+        this.name,
+        this.surname,
+        this.username,
+        this.password
+      );
+
       firebase
         .auth()
         .createUserWithEmailAndPassword(this.username, this.password)
-        .then(function () {
+        .then(() => {
           console.log("Uspješna registracija");
+          this.name = "";
+          this.surname = "";
+          this.username = "";
+          this.password = "";
         })
-        .catch(function (error) {
-          console.error("Došlo je do greške", error);
+        .catch((error) => {
+          console.error("Došlo je do greške pri registraciji", error.message);
         });
       console.log("Nastavak.");
     },

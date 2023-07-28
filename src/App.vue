@@ -7,7 +7,8 @@
           alt=""
           height="40"
           class="d-inline-block align-top"
-          loading="lazy" />
+          loading="lazy"
+        />
       </router-link>
 
       <button
@@ -17,7 +18,8 @@
         data-target="#navbarToggler"
         aria-controls="navbarToggler"
         aria-expanded="false"
-        aria-label="Toggle navigation">
+        aria-label="Toggle navigation"
+      >
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarToggler">
@@ -28,7 +30,8 @@
             type="search"
             id="pretraga-input"
             placeholder="Pretraga"
-            aria-label="Search" />
+            aria-label="Search"
+          />
         </form>
         <!-- Image and text -->
         <ul class="navbar-nav ml-auto">
@@ -59,10 +62,10 @@ import firebase from "@/firebase";
 
 firebase.auth().onAuthStateChanged((user) => {
   if (user) {
-    console.log("*** User", user.email);
+    console.log("******", user.email);
     store.currentUser = user.email;
   } else {
-    console.log("*** No user");
+    console.log("**** No user");
     store.currentUser = null;
   }
 });

@@ -7,30 +7,36 @@
       <div class="col">
         <form>
           <div class="form-group">
-            <label for="exampleInputEmail1">Email adresa</label>
+            <label for="exampleInputEmail2">Email adresa</label>
             <input
               v-model="username"
               type="email"
               class="form-control"
-              id="exampleInputEmail1"
+              id="exampleInputEmail2"
               aria-describedby="emailHelp"
-              placeholder="Enter email*" />
+              placeholder="Enter email*"
+            />
             <small id="emailHelp" class="form-text text-muted"
               >*We'll never share your email with anyone else.</small
             >
           </div>
 
           <div class="form-group">
-            <label for="exampleInputPassword1">Lozinka</label>
+            <label for="exampleInputPassword2">Lozinka</label>
             <input
               v-model="password"
               type="password"
               class="form-control"
-              id="exampleInputPassword1"
-              placeholder="Password" />
+              id="exampleInputPassword2"
+              placeholder="Password"
+            />
           </div>
 
-          <button type="submit" @click="login()" class="btn btn-primary">
+          <button
+            type="submit"
+            @click.prevent="login()"
+            class="btn btn-primary"
+          >
             Submit
           </button>
         </form>
@@ -43,6 +49,7 @@
 
 <script>
 import firebase from "@/firebase";
+import store from "@/store";
 
 export default {
   name: "login",
@@ -62,11 +69,13 @@ export default {
         .signInWithEmailAndPassword(this.username, this.password)
         .then((result) => {
           console.log("Uspješna prijava.", result);
-          this.$router.replace({ name: "home" });
+          // Postavite vrijednost store.currentUser na email korisnika
+          store.currentUser = this.username;
+          // Preusmjerite korisnika na "home" stranicu nakon prijave
+          this.$router.push({ name: "home" });
         })
-
-        .catch(function (e) {
-          console.error("Greška", e);
+        .catch((error) => {
+          console.error("Dogodila se pogreška prilikom prijave.", error);
         });
     },
   },
